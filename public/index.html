@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Remote Downloader Console</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar" aria-label="Connection status">
+        <div>
+          <p class="eyebrow">RDP Laptop Console</p>
+          <h1>Remote Downloader</h1>
+        </div>
+        <div class="status-pill" id="connectionStatus">Connecting</div>
+      </section>
+
+      <section class="layout">
+        <form class="panel composer" id="jobForm">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">New task</p>
+              <h2>Send a cloud-drive link</h2>
+            </div>
+            <div class="segmented" role="radiogroup" aria-label="Provider">
+              <label>
+                <input type="radio" name="provider" value="quark" checked />
+                <span>Quark</span>
+              </label>
+              <label>
+                <input type="radio" name="provider" value="baidu" />
+                <span>Baidu</span>
+              </label>
+            </div>
+          </div>
+
+          <label class="field">
+            <span>Share URL</span>
+            <textarea
+              id="shareUrl"
+              rows="4"
+              placeholder="Paste Quark or Baidu cloud-drive share URL"
+              autocomplete="off"
+              required
+            ></textarea>
+          </label>
+
+          <label class="field">
+            <span>Save to</span>
+            <div class="folder-select">
+              <input id="downloadDir" type="text" placeholder="Choose a folder below" required />
+              <button class="icon-button" type="button" id="copyFolderButton" title="Copy folder path">
+                <span aria-hidden="true">CP</span>
+              </button>
+            </div>
+          </label>
+
+          <div class="browser" aria-label="Folder browser">
+            <div class="browser-bar">
+              <button type="button" class="ghost-button" id="upButton">Up</button>
+              <span id="currentPath">Roots</span>
+            </div>
+            <div class="folder-list" id="folderList"></div>
+          </div>
+
+          <label class="field">
+            <span>Note</span>
+            <input id="note" type="text" placeholder="Optional label for this download" />
+          </label>
+
+          <div class="actions">
+            <button class="primary-button" type="submit">Queue task</button>
+            <button class="secondary-button" type="button" id="queueAndOpenButton">Queue and open</button>
+          </div>
+        </form>
+
+        <aside class="panel side">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Laptop</p>
+              <h2 id="hostName">Desktop session</h2>
+            </div>
+          </div>
+
+          <div class="info-stack">
+            <div>
+              <span>Mobile URL</span>
+              <button type="button" id="mobileUrlButton">Copy</button>
+            </div>
+            <p id="mobileUrl">Loading...</p>
+          </div>
+
+          <div class="steps">
+            <div>
+              <strong>1</strong>
+              <span>Choose a laptop folder from this page.</span>
+            </div>
+            <div>
+              <strong>2</strong>
+              <span>Open the task on the RDP laptop browser.</span>
+            </div>
+            <div>
+              <strong>3</strong>
+              <span>Use the copied folder path when the cloud-drive site asks where to save.</span>
+            </div>
+            <div>
+              <strong>!</strong>
+              <span>Docker mode can queue links and browse mounted folders, but native mode is required to open the Windows browser automatically.</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel jobs-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Queue</p>
+            <h2>Download tasks</h2>
+          </div>
+          <button type="button" class="ghost-button" id="refreshButton">Refresh</button>
+        </div>
+        <div class="jobs" id="jobs"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

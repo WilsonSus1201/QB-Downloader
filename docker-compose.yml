@@ -1,0 +1,21 @@
+services:
+  remote-downloader:
+    build: .
+    container_name: remote-downloader
+    restart: unless-stopped
+    ports:
+      - "4173:4173"
+    environment:
+      PORT: "4173"
+      HOST: "0.0.0.0"
+      DATA_DIR: "/data"
+      CONTAINER_MODE: "1"
+      DISABLE_DESKTOP_ACTIONS: "1"
+      DOWNLOAD_ROOTS: "Downloads=/downloads"
+      DOWNLOADER_TOKEN: "${DOWNLOADER_TOKEN:-}"
+    volumes:
+      - downloader-data:/data
+      - "${USERPROFILE}/Downloads:/downloads"
+
+volumes:
+  downloader-data:

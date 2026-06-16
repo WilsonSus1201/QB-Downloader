@@ -1,0 +1,12 @@
+{
+  "name": "remote-downloader-console",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mobile-friendly remote console for controlling desktop cloud-drive downloads on an RDP laptop.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
